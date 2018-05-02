@@ -37,9 +37,19 @@ function getOptionString(options) {
 MediaPluginWideVine.prototype.onAttachToMedia = function (media) {
     var me = this;
     media.registerHook('afteropen', function (media, args) {
-        exec(null, null, 'toast.Media', 'setStreamingProperty', [
-            'WIDEVINE',
-            getOptionString(me.options)
+        exec(null, null, 'toast.Media', 'setDrm', [
+            'WIDEVINE_CDM',
+            'Initialize',
+        ]);
+        exec(null, null, 'toast.Media', 'setDrm', [
+            'WIDEVINE_CDM',
+            'widevine_app_session',
+            me.options.widevine_app_session
+        ]);
+        exec(null, null, 'toast.Media', 'setDrm', [
+            'WIDEVINE_CDM',
+            'widevine_data_type',
+            me.options.widevine_data_type
         ]);
     });
 };

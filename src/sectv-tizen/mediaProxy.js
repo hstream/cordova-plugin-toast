@@ -197,6 +197,12 @@ function getMediaEventValue (type,data) {
             }
         };
         break;
+    case Media.EVENT_DRM :
+        reval = {
+            'type': type,
+            'data': data
+        };
+        break;
     case Media.EVENT_ENDED :
         reval = {
             'type': type,
@@ -325,6 +331,7 @@ module.exports = {
                 },
                 ondrmevent: function(drmEvent, drmData) {
                     console.log('media::DRM callback: ' + drmEvent + ', data: ' + drmData);
+                    Media.mediaEvent(id,getMediaEventValue(Media.EVENT_DRM,drmData));
                 }
             });
             currentMediaState = Media.STATE_IDLE;
